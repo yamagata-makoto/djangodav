@@ -7,7 +7,7 @@ except ImportError:
 from sys import version_info as python_version
 from lxml import etree
 
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str as force_text
 from django.utils.timezone import now
 from django.http import HttpResponseForbidden, HttpResponseNotAllowed, HttpResponseBadRequest, \
     HttpResponseNotModified, HttpResponseRedirect, Http404

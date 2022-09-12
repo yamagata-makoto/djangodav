@@ -23,7 +23,7 @@
 import datetime, time, calendar
 from wsgiref.handlers import format_date_time
 
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str as force_text
 from django.utils.feedgenerator import rfc2822_date
 
 try:

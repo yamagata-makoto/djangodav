@@ -20,7 +20,7 @@
 # along with DjangoDav.  If not, see <http://www.gnu.org/licenses/>.
 from uuid import uuid4
 
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str as force_text
 
 from djangodav.base.locks import BaseLock
 

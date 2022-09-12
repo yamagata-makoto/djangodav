@@ -29,3 +29,4 @@ env3
 *.sqlite
 migrations
 __pycache__
+venv

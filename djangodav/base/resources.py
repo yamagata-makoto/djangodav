@@ -22,8 +22,12 @@ from hashlib import md5
 from mimetypes import guess_type
 
 from django.utils.encoding import force_bytes
-from django.utils.http import urlquote
 from djangodav.utils import rfc3339_date, rfc1123_date, safe_join
+
+#from django.utils.http import urlquote
+from urllib.parse import quote
+def urlquote(url, safe='/'):
+    return quote(url, safe)
 
 
 class BaseDavResource(object):
