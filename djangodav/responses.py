@@ -23,13 +23,33 @@ try:
     import httplib
 except ImportError:
     from http import client as httplib
-from django.http import HttpResponse
+from django.http import HttpResponse as HttpResponse_
 
 
 # When possible, code returns an HTTPResponse sub-class. In some situations, we want to be able
 # to raise an exception to control the response (error conditions within utility functions). In
 # this case, we provide HttpError sub-classes for raising.
 
+class HttpResponse(HttpResponse_):
+    def __init__(self, content=b'', *args, **kwargs):
+        super().__init__(content=content, *args, **kwargs)
+        self['Access-Control-Allow-Origin'] = '*'
+        self['Access-Control-Allow-Methods'] = ','.join(self._allowed_methods())
+        self['Access-Control-Allow-Headers'] = ','.join(self._allowed_headers())
+
+    def _allowed_headers(self):
+        allowed =  [
+            'Overwrite', 'Destination', 'Content-Type', 'Depth', 'User-Agent'
+        ]
+        return allowed
+
+    def _allowed_methods(self):
+        allowed = [
+            'HEAD', 'OPTIONS', 'PROPFIND', 'LOCK', 'UNLOCK',
+            'GET', 'DELETE', 'PROPPATCH', 'COPY', 'MOVE', 'PUT', 'MKCOL',
+        ]
+
+        return allowed
 
 class ResponseException(Exception):
     """A base HTTP error class. This allows utility functions to raise an HTTP error so that

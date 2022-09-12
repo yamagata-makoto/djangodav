@@ -95,6 +95,12 @@ class DavView(View):
             response['Allow-Ranges'] = 'bytes'
         return response
 
+    def _allowed_headers(self):
+        allowed =  [
+            'Overwrite', 'Destination', 'Content-Type', 'Depth', 'User-Agent'
+        ]
+        return allowed
+
     def _allowed_methods(self):
         allowed = [
             'HEAD', 'OPTIONS', 'PROPFIND', 'LOCK', 'UNLOCK',
@@ -446,8 +452,9 @@ class DavView(View):
             )
         else:
             content = b''
-        return response_class(
+        response = response_class(
             content,
             content_type='text/xml; charset="%s"' % self.xml_encoding,
             **kwargs
         )
+        return response
